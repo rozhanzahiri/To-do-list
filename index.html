@@ -1,0 +1,271 @@
+<!-- https://codepen.io/saawsan/pen/jayzeq -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheet/css/fontello.css">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .todolist {
+            width: 500px;
+            min-height: 370px;
+            background-color: #ff6666;
+            margin: 100px auto;
+            box-shadow: -20px -20px #e8e2e2;
+            color: white;
+            font-family: "Quicksand", sans-serif;
+            position: relative;
+
+            /* class empty// */
+            >.empty {
+                margin-top: 50px;
+                /* border:  1px solid black; */
+                >em {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    font-size: 20px;
+                }
+            }
+
+            /* end class empty// */
+            /* title// */
+            >.row {
+                justify-content: center;
+
+                >.title {
+                    margin-top: 20px;
+                    width: 80%;
+                    height: 113px;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.428);
+
+                    >h1 {
+                        font-size: 50px;
+                        font-weight: normal;
+                        margin-top: 20px;
+                    }
+
+                    >p {
+                        font-size: 15px;
+                    }
+
+                }
+            }
+
+            /* title// */
+            >ul {
+                width: 100%;
+                min-height: 0px;
+                margin-bottom: 20px;
+                >li {
+                    list-style-type: none;
+                    width: 100%;
+                    height: 60px;
+                    background-color: rgba(255, 255, 255, 0.095);
+                    margin-bottom: 5px;
+                    display: flex;
+                    justify-content: center;
+                    position: relative;
+
+                    >.box {
+                        width: 80%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        >.line{
+                            width:0;
+                            height: 2px;
+                            display: flex;
+                            position: absolute;
+                            left: 9%;
+                            top: 29px;
+                            background-color: #e8e2e290;
+                            transition: .4s;
+                        }
+                        >h2 {
+                            width: 70%;
+                        }
+
+                        >input {
+                            height: 25px;
+                            width: 9%;
+                        }
+
+                        >i {
+                            width: 9%;
+                            cursor: pointer;
+                            font-size: 20px;
+                        }
+                    }
+                }
+            }
+
+            >.row {
+                justify-content: center;
+
+                >h2 {
+                    width: 80%;
+                    font-style: 20px;
+                    font-weight: normal;
+                }
+
+                >.input {
+                    width: 80%;
+                    display: flex;
+                    justify-content: space-between;
+
+                    >* {
+                        height: 55px;
+                        margin-top: 10px;
+                        margin-bottom: 30px;
+                    }
+
+                    >input {
+                        width: 73%;
+                        padding-left: 10px;
+                        border: 1px solid white;
+                    }
+
+                    >div {
+                        width: 25%;
+                        cursor: pointer;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border: 1px solid rgba(255, 255, 255, 0.494);
+                        transition: .4s;
+
+                        &:hover {
+                            background-color: #f95c5c;
+                        }
+                    }
+                }
+
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="todolist">
+        <div class="row">
+            <div class="title">
+                <h1>Todo List</h1>
+                <p>Get things done, one item at a time.</p>
+            </div>
+        </div>
+        <!-- end row// -->
+
+        <!-- class empty// -->
+        <div class="empty"><em>Your todo list is empty.</em></div>
+        <!-- class empty// -->
+        <ul></ul>
+
+        <div class="row">
+            <h2>Add to the todo list</h2>
+            <!-- input// -->
+            <div class="input">
+                <input type="text">
+                <div>Add item</div>
+            </div>
+            <!-- input// -->
+        </div>
+
+    </div>
+</body>
+<script>
+    const ul = document.querySelector('.todolist>ul')
+    const input = document.querySelector('.input>input')
+    const btn = document.querySelector('.input>div')
+    const em=document.querySelector('.empty>em')
+    Append_ul()
+    
+    // // check is the ul empty///
+    function check_empty() {
+        if (ul.childElementCount != 0) {
+            em.innerHTML=''
+        }else{
+            em.innerHTML='Your todo list is empty.'
+        }
+    }
+    // check is the ul empty///
+
+    // add Append to todo list//
+    function Append_ul() {
+        btn.addEventListener('click', () => {
+            Add()
+            check_empty()
+        })
+    }
+    
+    // add item to todo list//
+    function Add() {
+        let temp = input.value
+        if (temp === '') {
+            alert('write somthing...')
+        } else {
+            let li = document.createElement('li')
+            li.innerHTML = ` <div class="box">
+                    <span class="line""></span>
+                    <h2>${temp}</h2>
+                    <input type="checkbox"  onchange="done(this)">
+                    <i class=" icon-pencil" onclick="edit(this)"></i>
+                    <i class=" icon-trash" onclick=del(this)></i>
+                </div>
+                `
+            ul.appendChild(li)
+            input.value=null
+            input.focus()
+        }
+    }
+    
+   //  delet the task//
+    function del(s){
+        if(confirm('Are you sure?')){
+            s.parentElement.parentElement.remove()
+        }
+        check_empty()
+    }
+
+    // check the things done//
+    function done(s){
+        if(s.checked){
+             s.previousElementSibling.previousElementSibling.style.opacity='1'
+            s.previousElementSibling.previousElementSibling.style.width='250px'
+            s.previousElementSibling.style.color='#e8e2e290'
+
+        }else{
+             s.previousElementSibling.previousElementSibling.style.opacity='0'
+            setTimeout(() => {
+                s.previousElementSibling.previousElementSibling.style.width='0px'
+            }, 400);
+            s.previousElementSibling.style.color='white'
+        }
+    }
+
+    // edit//
+
+    function edit(s){
+        input.value=s.previousElementSibling.previousElementSibling.innerHTML
+        s.previousElementSibling.previousElementSibling.innerHTML=''
+       s.parentElement.parentElement.remove()
+    }
+</script>
+
+</html>
