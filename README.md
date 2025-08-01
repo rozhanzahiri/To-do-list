@@ -1,5 +1,5 @@
 # To-do-list
-- [Demo Project](https://rozhanzahiri.github.io/XO_Game/)
+- [Demo Project](https://rozhanzahiri.github.io/To-do-list/)
 
 - Developed by Rozhan Zahiri
 
